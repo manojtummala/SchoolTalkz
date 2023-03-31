@@ -1,0 +1,46 @@
+import { SVGProp } from "@/types/ui";
+
+const RecentLogo = ({ mode, width, height }: SVGProp) => {
+  return (
+    <div className="p-3 rounded-full bg-white border-dark-blue border">
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 10V16"
+          stroke="#03194D"
+          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M21.2 19L16 16"
+          stroke="#03194D"
+          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M23.0244 12.4619H28.0244V7.46191"
+          stroke="#03194D"
+          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M23.775 23.775C22.237 25.3143 20.277 26.3628 18.1429 26.788C16.0089 27.2132 13.7967 26.9958 11.7862 26.1635C9.7757 25.3312 8.0572 23.9213 6.84811 22.1122C5.63902 20.3031 4.99365 18.176 4.99365 16C4.99365 13.824 5.63902 11.6969 6.84811 9.8878C8.0572 8.07866 9.7757 6.66877 11.7862 5.83647C13.7967 5.00417 16.0089 4.78686 18.1429 5.21202C20.277 5.63719 22.237 6.68573 23.775 8.22501L28.025 12.4625"
+          stroke="#03194D"
+          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+};
+
+export default RecentLogo;

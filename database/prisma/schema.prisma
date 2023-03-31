@@ -1,0 +1,284 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum class_to_map {
+  not_mapped
+  Nursery
+  LKG
+  UKG
+  One
+  Two
+  Three
+  Four
+  Five
+  Six
+  Seven
+  Eight
+  Nine
+  Ten
+  Eleven
+  Twelve
+}
+
+enum school_user_type {
+  student
+  staff
+}
+
+enum feed_visiblity_enum {
+  association_feed
+  school_feed
+  global_feed
+  community
+  talent_hub
+}
+
+enum rwd_priviledge {
+  r
+  rw
+  rwd
+}
+
+enum user_type {
+  school_user
+  creator
+  schooltalkz_staff
+}
+
+enum user_priviledges {
+  global
+  local
+}
+
+enum gender_enum {
+  male
+  female
+  other
+}
+
+enum payment_status {
+  paid
+  cancelled
+  pending
+}
+
+enum status {
+  active
+  inactive
+}
+
+model user {
+  id                     String             @id @default(uuid())
+  user_type              user_type
+  user_priviledges       user_priviledges   @default(local)
+  profile_pic            String?
+  first_name             String
+  last_name              String
+  dob                    DateTime
+  gender                 gender_enum
+  email                  String             @unique
+  phone                  String             @unique
+  password               String
+  isActive               Boolean            @default(true)
+  otp                    String?
+  otp_gen_at             DateTime?
+  email_verification_otp String?
+  email_ver_otp_gen_at   DateTime?
+  phone_verification_otp String?
+  phone_ver_otp_gen_at   DateTime?
+  email_verified         Boolean            @default(false)
+  phone_verified         Boolean            @default(false)
+  posts_comments         posts_comments[]
+  liked_posts            posts_comments[]   @relation(name: "liked_posts")
+  week_points            Int?               @default(0)
+  month_points           Int?               @default(0)
+  overall_points         Int?               @default(0)
+  status                 status?            @default(active)
+  created_at             DateTime?          @default(now())
+  updated_at             DateTime?          @updatedAt
+  school_user            school_user?
+  creator                creator?
+  schooltalkz_staff      schooltalkz_staff?
+  saved_posts            posts_comments[]   @relation(name: "saved_posts")
+}
+
+// students and school staffs
+model school_user {
+  id                 String         @id @default(uuid())
+  user_details       user           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId             String         @unique
+  is_student         Boolean
+  school             school         @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  schoolId           String
+  intrests           topic[]
+  id_by_school       String // roll no. or staff id
+  isPaid             Boolean?       @default(false)
+  last_paid_at       DateTime?
+  updated_at         DateTime?      @updatedAt
+  communities_joined community[]
+  workshops_joined   workshop[]
+  priviledges        rwd_priviledge @default(r)
+  payment            payment[] // payment history
+  association        association    @relation(fields: [associationId], references: [id], onDelete: Cascade) // class or staff dept
+  associationId      String
+
+  @@unique([schoolId, associationId, id_by_school])
+}
+
+model association {
+  id              String        @id @unique @default(uuid())
+  name            String
+  is_class        Boolean
+  school          school        @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  schoolId        String
+  mapped_to       class_to_map  @default(not_mapped)
+  sub_association String?
+  members         school_user[]
+  created_at      DateTime?     @default(now())
+  updated_at      DateTime?     @updatedAt
+  // visible_feed feed_visiblity[]
+
+  @@unique([name, is_class, schoolId, sub_association])
+}
+
+// creators
+model creator {
+  id                  String      @id @default(uuid())
+  user_details        user        @relation(fields: [user_details_id], references: [id], onDelete: Cascade)
+  user_details_id     String      @unique
+  communities_created community[]
+  workshops_created   workshop[]
+  created_at          DateTime?   @default(now())
+  updated_at          DateTime?   @updatedAt
+}
+
+// schooltalkz staffs
+model schooltalkz_staff {
+  id           String          @id @default(uuid())
+  user_details user            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String          @unique
+  priviledge   rwd_priviledge? @default(r)
+  created_at   DateTime?       @default(now())
+  updated_at   DateTime?       @updatedAt
+  bugs         bugs[]
+}
+
+model school {
+  id                String        @id @default(uuid())
+  subdomain_alloted String        @unique
+  name              String
+  isActive          Boolean
+  email             String        @unique
+  password          String
+  contact_name      String
+  phone             String
+  members           school_user[]
+  location          String
+  created_at        DateTime?     @default(now())
+  updated_at        DateTime?     @updatedAt
+  association       association[]
+  // visible_feed      feed_visiblity[]
+}
+
+model topic {
+  id            String           @id @default(uuid())
+  name          String           @unique
+  related_posts posts_comments[]
+  subscribers   school_user[]
+  community     community[]
+  workshop      workshop[]
+}
+
+// posts and comments
+model posts_comments {
+  id          String           @id @default(uuid())
+  metadata    String?
+  assets      String[]
+  description String?
+  liked_by    user[]           @relation(name: "liked_posts")
+  saved_by    user[]           @relation(name: "saved_posts")
+  posted_by   user             @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  status      status           @default(active)
+  // shown_in    feed_visiblity[]
+  topics      topic[]
+  community   community?       @relation(fields: [communityId], references: [id])
+  communityId String?
+  children    posts_comments[] @relation(name: "family")
+  parent      posts_comments?  @relation(name: "family", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId    String?
+  created_at  DateTime?        @default(now())
+  updated_at  DateTime?        @updatedAt
+}
+
+// model feed_visiblity {
+//   id                     String              @id @default(uuid())
+//   posts_comments         posts_comments?     @relation(fields: [posts_commentsId], references: [id], onDelete: Cascade)
+//   posts_commentsId       String?
+//   visible_in             feed_visiblity_enum
+//   visible_in_association association?        @relation(fields: [associationId], references: [id], onDelete: Cascade)
+//   associationId          String?
+//   visible_in_school      school?             @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+//   schoolId               String?
+//   visible_in_community   community?          @relation(fields: [communityId], references: [id], onDelete: Cascade)
+//   communityId            String?
+// }
+
+model community {
+  id          String           @id @default(uuid())
+  topics      topic[]
+  // cover_picture saved in NoSQL
+  description String
+  posts       posts_comments[]
+  creator     creator          @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+  creator_id  String
+  enrollments school_user[]
+  created_at  DateTime?        @default(now())
+  updated_at  DateTime?        @updatedAt
+  // visible_feed feed_visiblity[]
+}
+
+model workshop {
+  id          String        @id @default(uuid())
+  topics      topic[]
+  free        Boolean?      @default(false)
+  enrollments school_user[]
+  description String
+  start_time  DateTime
+  end_time    DateTime
+  location    String
+  creator     creator       @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId   String
+  created_at  DateTime?     @default(now())
+  updated_at  DateTime?     @updatedAt
+}
+
+model payment {
+  id                String          @id @default(uuid())
+  stripe_id         String          @unique
+  amount            Int
+  user              school_user     @relation(fields: [userId], references: [id], onDelete: SetDefault)
+  userId            String          @default("anonymous")
+  paid_by           String //upi id / bank a/c etc
+  status            payment_status? @default(pending)
+  payment_initiated DateTime?       @default(now())
+  paid_on           DateTime
+}
+
+model bugs {
+  id            String              @id @default(uuid())
+  error_message String
+  status        status              @default(active)
+  assigned_to   schooltalkz_staff[]
+  created_at    DateTime?           @default(now())
+  updated_at    DateTime?           @updatedAt
+}

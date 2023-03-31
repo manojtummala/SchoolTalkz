@@ -1,0 +1,14 @@
+import { SVGProp } from "@/types/ui";
+
+const ChatCircleText = ({ mode, width, height }: SVGProp) => {
+  return (
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.34444 14.7589C3.39241 13.1527 3.0594 11.2542 3.40793 9.41985C3.75646 7.5855 4.76257 5.94145 6.23736 4.79633C7.71215 3.65121 9.55421 3.08378 11.4177 3.20056C13.2812 3.31735 15.038 4.11032 16.3583 5.43061C17.6786 6.75089 18.4716 8.5077 18.5884 10.3712C18.7052 12.2347 18.1377 14.0768 16.9926 15.5516C15.8475 17.0264 14.2034 18.0325 12.3691 18.381C10.5347 18.7295 8.63624 18.3965 7.03002 17.4445V17.4445L4.37641 18.1958C4.26769 18.2276 4.15242 18.2296 4.04268 18.2015C3.93294 18.1734 3.83277 18.1164 3.75267 18.0363C3.67258 17.9562 3.6155 17.856 3.58743 17.7463C3.55936 17.6365 3.56132 17.5212 3.59312 17.4125L4.34444 14.7589Z" stroke="#888888" stroke-width="0.535996" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.38843 9.56348H13.5038" stroke="#888888" stroke-width="0.535996" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.38867 12.1206H13.5041" stroke="#888888" stroke-width="0.535996" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+  );
+};
+
+export default ChatCircleText;

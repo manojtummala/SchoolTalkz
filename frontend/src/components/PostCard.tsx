@@ -1,0 +1,20 @@
+import PostFooter from "./PostFooter";
+import PostHeader from "./PostHeader";
+import PostMainContent from "./PostMainContent";
+import { PostData } from "@/data";
+
+type FeedProp = {
+  postData: any;
+};
+
+const PostCard = ({ postData }: FeedProp) => {
+  return (
+    <div className="bg-white w-full min-w-[380px] rounded-2xl shadow-small-bottom">
+      <PostHeader />
+      <PostMainContent />
+      <PostFooter data={postData} />
+    </div>
+  );
+};
+
+export default PostCard;

@@ -1,0 +1,42 @@
+{
+  "name": "schooltalkz_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "migrate": "prisma migrate",
+    "migrate_dev": "prisma migrate dev",
+    "prisma": "prisma generate",
+    "dev": "nodemon index.ts",
+    "compile": "tsc",
+    "start": "npm run compile && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/express": "^4.17.16",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^18.11.18",
+    "eslint": "^8.33.0",
+    "eslint-config-semistandard": "^17.0.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^2.0.20",
+    "prisma": "^4.9.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.9.0",
+    "body-parser": "^1.20.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "^2.5.0"
+  }
+}
