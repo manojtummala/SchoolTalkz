@@ -8,6 +8,7 @@ import { FormEvent, SyntheticEvent, useEffect } from "react";
 import StaffHeaderAdd from "@/components/Configuration/StaffHeaderAdd";
 import { authInstance } from "./api/axios";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import X from "@/asset/images/X";
 
 
@@ -42,7 +43,7 @@ const genderOptions = [
 export default function Form() {
   const [addStaff, setAddStaff] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     console.log(data);
     setAddStaff(true)
   }
@@ -58,7 +59,7 @@ export default function Form() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="../../images/logo.png" />
       </Head>
-      <main className="w-cover flex justify-around p-4 pl-10">
+      <main className="w-cover flex justify-around p-4">
         <div className="w-1/12 flex flex-col items-center">
           <Sidebar />
         </div>
@@ -93,7 +94,10 @@ export default function Form() {
                       type="text"
                       placeholder="Enter First Name"
                       className="py-2.5 px-6 border border-solid border-[#d3d3d3] rounded-sm mt-1 outline-none w-full"
-
+                      {...register('firstName', {
+                        required: true,
+                        maxLength: 15
+                      })}
                     />
                     {errors.firstName && <p className="text-red-600 text-sm">Please check the First Name</p>}
                   </div>
