@@ -7,11 +7,13 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function DanceCategory() {
     return (
-        <TalentHubLayout>
-            <div>
-                <CategoryBody />
-            </div>
-        </TalentHubLayout>
+        <div className={montserrat.className}>
+            <TalentHubLayout>
+                <div>
+                    <CategoryBody />
+                </div>
+            </TalentHubLayout>
+        </div>
     );
 }
 

@@ -7,9 +7,14 @@ import "@szhsin/react-menu/dist/transitions/slide.css";
 import SignOut from "@/asset/images/SignOut";
 
 type ProfileProp = {
+  id: string,
   name: string;
   position: string;
   image: string;
+  school: string;
+  starsearned: string;
+  classrank: string;
+  schoolrank: string;
 };
 
 const titles: Title[] = [
@@ -19,25 +24,43 @@ const titles: Title[] = [
   },
 ];
 
-const RenderProfile = ({ name, position, image }: ProfileProp) => {
+export const user: ProfileProp[] = [
+  {
+    id: "0",
+    name: "Jiffin",
+    position: "Student",
+    image: "https://i.pravatar.cc/300?img=20",
+    school: "Global International School",
+    starsearned: '252',
+    classrank: '2',
+    schoolrank: '52',
+  }
+]
+
+const RenderProfile = () => {
   return (
     <div className="flex gap-5">
-      <div className="flex flex-col items-end">
-        <div className="font-bold">Welcome {name}</div>
-        <div>{position}</div>
-      </div>
-      <img className="rounded-full h-10 w-10" src={image} />
+      {user.map((user) => (
+        <div className="flex gap-5" key={user.id}>
+          <div className="flex flex-col items-end">
+            <div className="font-bold">Welcome {user.name}</div>
+            <div>{user.position}</div>
+          </div>
+
+          <img className="rounded-full h-10 w-10" src={user.image} />
+        </div>
+      ))}
     </div>
   );
 };
 
-const RenderProfileMenu = (props: ProfileProp) => {
+const RenderProfileMenu = () => {
   return (
     <Menu
       menuButton={
         <MenuButton>
           <div className="w-max flex justify-between items-center font-open cursor-pointer">
-            <RenderProfile {...props} />
+            <RenderProfile />
           </div>
         </MenuButton>
       }
@@ -90,11 +113,7 @@ const Header = () => {
             {10}
           </span>
         </button>
-        <RenderProfileMenu
-          name="Jiffin"
-          position="Student"
-          image="https://i.pravatar.cc/300?img=20"
-        />
+        <RenderProfileMenu />
       </div>
     </div>
   );

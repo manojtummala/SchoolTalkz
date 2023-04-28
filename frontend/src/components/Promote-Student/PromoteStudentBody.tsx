@@ -5,7 +5,6 @@ import { SyntheticEvent, useState } from 'react';
 import { authInstance } from "../../pages/api/axios";
 import React, { useEffect } from 'react';
 
-import SelectStudent from '@/pages/selectstudents';
 // import { useHistory } from 'react-router-dom';
 
 
@@ -209,7 +208,7 @@ export default function PromoteStudentBody() {
                     <form
                         onSubmit={(e) => handleForm(e)}
                     >
-                        <div className='relative rounded-b-3xl p-4 w-full pb-96 flex-col bg-myBlue'>
+                        <div className="w-full flex-col bg-myBlue p-4 pt-28 lg:w-full h-full pb-96">
                             <div className='rounded-xl ml-6 mr-6 h-full shadow-xl'>
                                 <div className='rounded-t-xl bg-myGray flex items-center justify-center h-16 mt-4'>
                                     <h1 className='text-lg font-bold flex items-center justify-center'>Promote From</h1>
@@ -249,7 +248,7 @@ export default function PromoteStudentBody() {
                                     </div>
                                 </div>
                                 <div className='block lg:flex pt-12 pb-4 px-32 w-full justify-end bg-white rounded-b-2xl'>
-                                    <button className='flex justify-center items-center py-2 px-8 rounded-xl border-none text-white cursor-pointer bg-[#de2135] mr-4 w-full mb-2 lg:w-1/5'><Link href='/Studentprofile'>Cancel</Link></button>
+                                    <button className='flex justify-center items-center py-2 px-8 rounded-xl border-none text-white cursor-pointer bg-[#de2135] mr-4 w-full mb-2 lg:w-1/5'><Link href='/student'>Cancel</Link></button>
                                     <button type="submit" onClick={showFrom} className='flex justify-center items-center py-2 px-8 rounded-xl border-none text-white cursor-pointer bg-gradient-to-r from-[#0A1122] to-[#03194D] mr-4 w-full mb-2 lg:w-1/5'>Next</button>
                                 </div>
                             </div>
@@ -261,7 +260,7 @@ export default function PromoteStudentBody() {
             {select && (
                 <div>
 
-                    <div className='relative rounded-b-3xl p-4 w-full pb-96 flex-col bg-myBlue'>
+                    <div className="w-full flex-col bg-myBlue p-4 pt-28 lg:w-full h-full pb-96">
                         <div className='rounded-xl ml-6 mr-6 h-full shadow-xl'>
                             <div className='rounded-t-xl bg-myGray flex items-center justify-center h-16 mt-4'>
                                 <h1 className='text-lg font-bold flex items-center justify-center'>Select Students</h1>
@@ -299,7 +298,7 @@ export default function PromoteStudentBody() {
                     <form
                         onSubmit={(e) => handleForm(e)}
                     >
-                        <div className='relative rounded-b-3xl p-4 w-full pb-96 flex-col bg-myBlue'>
+                        <div className="w-full flex-col bg-myBlue p-4 pt-28 lg:w-full h-full pb-96">
                             <div className='rounded-xl ml-6 mr-6 h-full shadow-xl'>
                                 <div className='rounded-t-xl bg-myGray flex items-center justify-center h-16 mt-4'>
                                     <h1 className='text-lg font-bold flex items-center justify-center'>Promote To</h1>
@@ -351,7 +350,7 @@ export default function PromoteStudentBody() {
 
             {confirm && (
                 <div>
-                    <div className='relative rounded-b-3xl p-4 w-full pb-96 flex-col bg-myBlue'>
+                    <div className="w-full flex-col bg-myBlue p-4 pt-28 lg:w-full h-full pb-96">
                         <div className='rounded-xl ml-6 mr-6 h-full shadow-xl'>
                             <div className='rounded-t-xl bg-myGray flex items-center justify-center h-16 mt-4'>
                                 <h1 className='text-lg font-bold flex items-center justify-center'>Confirmation</h1>
@@ -431,7 +430,7 @@ export default function PromoteStudentBody() {
                             </div>
                         </div>
                         <div className='block lg:flex px-12 w-full justify-center bg-white rounded-b-2xl'>
-                            <button className='flex justify-center items-center py-2 px-8 rounded-xl border-none text-white cursor-pointer bg-gradient-to-r from-[#0A1122] to-[#03194D] mr-4 w-full mb-2 lg:w-1/2'><Link href='/Studentprofile'>Continue</Link></button>
+                            <button className='flex justify-center items-center py-2 px-8 rounded-xl border-none text-white cursor-pointer bg-gradient-to-r from-[#0A1122] to-[#03194D] mr-4 w-full mb-2 lg:w-1/2'><Link href='/student'>Continue</Link></button>
 
                         </div>
 
@@ -460,9 +459,9 @@ export default function PromoteStudentBody() {
                                     </thead>
                                     <tbody className="text-gray-600 text-sm font-light">
                                         {studentData.length !== 0
-                                            ? studentData.map((singleClasss) => {
+                                            ? studentData.map((singleClasss, i) => {
                                                 return (
-                                                    <RenderClass
+                                                    <RenderClass key={i}
                                                         rollno={singleClasss?.rollno ?? "NA"}
                                                         name={singleClasss?.name ?? "NA"}
                                                         standard={singleClasss?.standard ?? "NA"}

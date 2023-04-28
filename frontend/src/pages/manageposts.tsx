@@ -7,10 +7,12 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function ManagePost() {
     return (
-        <ManagePostLayout>
-            <div>
-                <ManagePostBody />
-            </div>
-        </ManagePostLayout>
+        <div className={montserrat.className}>
+            <ManagePostLayout>
+                <div>
+                    <ManagePostBody />
+                </div>
+            </ManagePostLayout>
+        </div>
     );
 }

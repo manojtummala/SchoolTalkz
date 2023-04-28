@@ -5,27 +5,26 @@ export default [
   {
     name: "Recent",
     icon: <RecentLogo />,
-    link: '/'
+    link: '/schoolfeed'
   },
   {
     name: "Trending",
     icon: <TrendingLogo />,
-    link: '/'
+    link: '/schoolfeed'
   },
   {
     name: "My Post",
     icon: <MypostLogo />,
-    link: '/'
+    link: '/schoolfeed'
   },
   {
     name: "Labels",
     icon: <LabelsLogo />,
-    link: '/'
+    link: '/schoolfeed'
   },
   {
     name: "Manage Posts",
     icon: <ManagePostsLogo />,
-    action: () => console.log("hi"),
     link: '/manageposts'
   },
 ];

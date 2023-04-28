@@ -16,9 +16,6 @@ const CategoryBody = () => {
     const [communities, setCommunities] = useState(false)
     const [workshops, setWorkShops] = useState(false)
 
-
-
-
     const handleClick = (clickedData: Data) => {
         setSelectedData(clickedData);
         if (clickedData.name == "Posts") {
@@ -46,7 +43,9 @@ const CategoryBody = () => {
                     return (
                         <div key={i} className="cursor-pointer flex flex-col items-center justify-center" onClick={() => handleClick(data)}>
                             {data.icon}
-                            {data.name}
+                            <div className="-mt-3">
+                                {data.name}
+                            </div>
                         </div>
                     );
                 })}

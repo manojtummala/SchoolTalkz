@@ -1,10 +1,9 @@
 import { Eye, Savelogo, ThumbsUpLogo } from "@/asset/images";
 import CommentLogo from "@/asset/images/CommentLogo";
+import JoinArrow from "@/asset/images/JoinArrow";
 import { SVGProp } from "@/types/ui";
-import JoinArrow from '@/asset/images/JoinArrow';
 import Input from "@/ui/Input";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 type Prop = {
     data: {
@@ -31,15 +30,54 @@ const RenderTopics = ({ data }: Prop) => {
 };
 
 const CategoryWorkshopCardFooter = ({ data }: Prop) => {
+    const [liked, setLiked] = useState(false);
+    const [commented, setCommented] = useState(false);
+    const [saved, setSaved] = useState(false);
+
     const actionProps: SVGProp = {
         mode: "light",
         height: "15",
         width: "15",
     };
+
+    const likeProps = {
+        ...actionProps,
+        filled: liked,
+    };
+    const commentProps = {
+        ...actionProps,
+        filled: commented,
+    };
+    const saveProps = {
+        ...actionProps,
+        filled: saved,
+    };
+
     const actions = [
-        { value: 10, logo: <ThumbsUpLogo {...actionProps} />, text: "Liked" },
-        { value: 15, logo: <CommentLogo {...actionProps} />, text: "Comments" },
-        { value: 11, logo: <Savelogo {...actionProps} />, text: "Saved" },
+        {
+            value: 10,
+            logo: <ThumbsUpLogo {...likeProps} />,
+            text: "Liked",
+            onClick: () => {
+                setLiked(!liked);
+            },
+        },
+        {
+            value: 15,
+            logo: <CommentLogo {...commentProps} />,
+            text: "Comments",
+            onClick: () => {
+                setCommented(!commented);
+            },
+        },
+        {
+            value: 11,
+            logo: <Savelogo {...saveProps} />,
+            text: "Saved",
+            onClick: () => {
+                setSaved(!saved);
+            },
+        },
     ];
 
     const [register, setRegister] = useState(true)
@@ -50,14 +88,13 @@ const CategoryWorkshopCardFooter = ({ data }: Prop) => {
 
     return (
         <div className="py-3 px-4 flex flex-col gap-4">
-
             {register ? (
                 <div onClick={showJoined} className='flex items-center justify-center pb-2 cursor-pointer border-b-2 border-gray-300'>
                     <div className='text-orange-500 font-semibold mr-2'>Regitser Now</div>
                     <div><JoinArrow /></div>
                 </div>) :
 
-                (<div className='flex items-center justify-center pb-2 cursor-pointer border-b-2 border-gray-300'>
+                (<div onClick={showJoined} className='flex items-center justify-center pb-2 cursor-pointer border-b-2 border-gray-300'>
                     <div className='text-gray-500 font-semibold mr-2'>Registered</div>
                 </div>
                 )
@@ -72,7 +109,7 @@ const CategoryWorkshopCardFooter = ({ data }: Prop) => {
             <div className="flex justify-between mx-4">
                 {actions.map((action, i) => {
                     return (
-                        <button className="flex gap-0.5 text-xs" key={i} >
+                        <button className="flex gap-0.5 text-xs " key={i} onClick={action.onClick}>
                             {action.logo} {action.value} {action.text}
                         </button>
                     );

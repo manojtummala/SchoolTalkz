@@ -7,11 +7,13 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Community() {
     return (
-        <TalentHubLayout>
-            <div>
-                <Communities />
-            </div>
-        </TalentHubLayout>
+        <div className={montserrat.className}>
+            <TalentHubLayout>
+                <div>
+                    <Communities />
+                </div>
+            </TalentHubLayout>
+        </div>
     );
 }
 

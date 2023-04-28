@@ -1,6 +1,6 @@
-import { ModeProp } from "@/types/ui";
+import { SVGProp } from "@/types/ui";
 
-const Eye = ({mode}: ModeProp) => {
+const Eye = ({ mode }: SVGProp) => {
   return (
     <svg
       width="16"

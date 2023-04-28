@@ -79,7 +79,7 @@ const TalentHubHeader = () => {
                 <RenderBreadcrumb />
             </div>
             <div className="right flex gap-8 items-center justify-center text-base">
-                <button>
+                <button className="relative">
                     <SearchIcon />
                 </button>
                 <button className="relative">

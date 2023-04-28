@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 export default function report() {
     return (
-        <div>
+        <div className={montserrat.className}>
             <PromoteStudentLayout>
                 <div>
                     <PromoteStudentBody />

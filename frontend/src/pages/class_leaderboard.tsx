@@ -7,10 +7,12 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function ClassLeaderboard() {
     return (
-        <ReportLayout>
-            <div>
-                <ClassLeaderboardBody />
-            </div>
-        </ReportLayout>
+        <div className={montserrat.className}>
+            <ReportLayout>
+                <div>
+                    <ClassLeaderboardBody />
+                </div>
+            </ReportLayout>
+        </div>
     );
 }
